@@ -1,0 +1,130 @@
+# Project 3 4348
+
+## Overview
+**Project 3 4348** is an interactive B-Tree based index management program. It allows you to create, open, insert, search, load, print, and extract data from a custom on-disk B-Tree structure. The B-Tree is stored in a binary file and supports operations to maintain balanced search efficiency. This project was developed as part of CS4348 coursework.
+
+## Files in the Project
+- **Main.java**: The main Java source file containing the implementation of the B-Tree index, commands, and interactive loop.
+- **devlog.md**: A development log tracking progress over time, including thoughts, plans, and reflections at different stages.
+- **README**: This documentation file, describing how to run the project, available commands, and test scenarios.
+- **sample.idx**: A sample index file for testing. You can use this file to test `open`, `search`, `print`, and other commands after it's created and populated.
+
+## How to Run the Project via Command Line
+1. **Compile the source**:
+   javac Main.java
+   This will produce `Main.class` in the current directory.
+
+2. **Run the program**:
+   java Main
+   Upon running, you will see a prompt and a list of available commands.
+
+## Available Commands
+- create: Create a new index file.
+- open: Open an existing index file.
+- insert: Insert a new key-value pair into the B-Tree.
+- search: Search for a key in the B-Tree.
+- load: Load multiple key-value pairs from a CSV-like file.
+- print: Print all key-value pairs in ascending order of keys.
+- extract: Write all key-value pairs to a CSV-like file.
+- quit: Exit the program.
+
+## Example Usage
+1. Create a new index file:
+   Command: create
+   When prompted, enter a filename (e.g., sample.idx). If the file exists, type yes to overwrite.
+
+2. Insert keys:
+   Command: insert
+   Enter key and value when prompted (unsigned integers only).
+   For example: Key=10, Value=100.
+
+3. Search for a key:
+   Command: search
+   Enter the key you want to search.
+   If it exists, you'll see its value; if not, "Key not found."
+
+4. Print all keys:
+   Command: print
+   Lists all keys and values in ascending order.
+
+5. Extract to a file:
+   Command: extract
+   Enter a filename (e.g., exported_data.csv)
+   The file will contain each key-value pair in the format key,value.
+
+## Test Cases and Expected Results
+
+### Test Case 1: Basic Creation, Insertion, and Search
+Commands:
+create -> sample.idx
+insert -> Key=10, Value=100
+insert -> Key=20, Value=200
+search -> Key=10
+search -> Key=15
+
+Expected Results:
+Searching Key=10 -> "Found key 10 with value 100."
+Searching Key=15 -> "Key not found."
+
+### Test Case 2: Multiple Inserts and Node Splits
+Commands:
+create -> sample.idx
+Insert keys 1 through 20 in ascending order.
+print
+
+Expected Results:
+The print command should list keys from 1 to 20 in ascending order, confirming that node splitting occurred successfully.
+
+### Test Case 3: Load Data from File
+Prerequisite File: data_to_load.csv with:
+100,1000
+50,500
+200,2000
+
+Commands:
+create -> sample.idx
+load -> data_to_load.csv
+print
+
+Expected Results:
+The printed data should show keys in sorted order:
+50: 500
+100: 1000
+200: 2000
+Confirming the load worked correctly.
+
+### Test Case 4: Extracting Data
+Setup: After inserting keys 5,10,20
+Commands:
+create -> sample.idx
+insert -> (5,50), (10,100), (20,200)
+extract -> export.csv
+
+Check export.csv:
+5,50
+10,100
+20,200
+Confirms extraction matches the B-Tree content.
+
+### Test Case 5: Handling Invalid Inputs
+Commands:
+insert -> key=-10 (invalid), value=100
+
+Expected Results:
+The program should print "Invalid input. Please enter unsigned integers."
+
+### Test Case 6: No File Open Scenario
+Commands:
+insert or print without having created or opened a file.
+
+Expected Results:
+"No index file is open."
+
+These test cases ensure the program handles creation, insertion, searching, loading, printing, extracting, and handling invalid inputs correctly.
+
+## Additional Notes
+- Ensure you have read/write permissions for creating and modifying files in the directory where you run the program.
+- If you open the sample.idx file after inserting keys, re-running commands like print or search should produce consistent results, confirming persistence.
+
+## Conclusion
+This README provides instructions for running Project 3 4348, details on how to use the commands, lists test cases for verification, and includes an overview of the project files. By following these steps and testing with the given scenarios, you can confirm the program's reliability and correctness.
